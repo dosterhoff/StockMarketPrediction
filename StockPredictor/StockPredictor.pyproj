@@ -29,6 +29,12 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="runserver.py" />
+    <Compile Include="StockPredictor\auth.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="StockPredictor\main.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="StockPredictor\__init__.py" />
     <Compile Include="StockPredictor\views.py" />
   </ItemGroup>
@@ -65,9 +71,13 @@
     <Content Include="StockPredictor\static\scripts\respond.min.js" />
     <Content Include="StockPredictor\static\scripts\_references.js" />
     <Content Include="StockPredictor\templates\about.html" />
+    <Content Include="StockPredictor\templates\base.html" />
     <Content Include="StockPredictor\templates\contact.html" />
     <Content Include="StockPredictor\templates\index.html" />
     <Content Include="StockPredictor\templates\layout.html" />
+    <Content Include="StockPredictor\templates\login.html" />
+    <Content Include="StockPredictor\templates\profile.html" />
+    <Content Include="StockPredictor\templates\signup.html" />
   </ItemGroup>
   <ItemGroup>
     <InterpreterReference Include="Global|PythonCore|3.7" />

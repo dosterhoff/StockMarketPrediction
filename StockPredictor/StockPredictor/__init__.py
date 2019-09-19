@@ -11,4 +11,8 @@ app = Flask(__name__)
 app.config['SECRET_KEY'] = 'secretkey'
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///3'
 
-#import StockPredictor.views
+#import main.py
+
+#import StockPredictor.main
+
+import StockPredictor.views

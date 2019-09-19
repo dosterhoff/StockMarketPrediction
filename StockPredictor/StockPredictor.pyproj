@@ -74,6 +74,7 @@
     <Content Include="StockPredictor\templates\base.html" />
     <Content Include="StockPredictor\templates\contact.html" />
     <Content Include="StockPredictor\templates\index.html" />
+    <Content Include="StockPredictor\templates\indexoriginal.html" />
     <Content Include="StockPredictor\templates\layout.html" />
     <Content Include="StockPredictor\templates\login.html" />
     <Content Include="StockPredictor\templates\profile.html" />

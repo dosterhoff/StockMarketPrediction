@@ -39,8 +39,8 @@ data_directory = directory + "/data"
 
 # Hardware Parameters
 CPU = True  # Selection between CPU or GPU
-CPU_cores = 2  # If CPU, how many cores
-GPU_mem_use = 0.25  # In both cases the GPU mem is going to be used, choose fraction to use
+CPU_cores = 16  # If CPU, how many cores
+GPU_mem_use = 0.75  # In both cases the GPU mem is going to be used, choose fraction to use
 
 # Data Parameters
 train_data = data_directory + '/train_data.npy'  # path to training data
@@ -81,7 +81,7 @@ COST_D = 0.005  # Different variable of cost for deng's method
 NORMALIZE_IN = True  # Normalize the input using z-score scaling
 
 # Algorithm Parameters
-STEPS = 500
+STEPS = 15 #default is 500.
 EPOCHS = 100
 WINDOW_LENGTH = 100
 ONE_HOT = True  # Agent Position Awareness
@@ -99,12 +99,12 @@ EXPLORE_STEPS = int(ALL_STEPS * PERCENTAGE_EXPLORE)  # after how many steps shou
 # Neural Net Parameters
 NODES = 16  # Neurons
 BATCH_SIZE = 64
-MEM_SIZE = 100000
+MEM_SIZE = 1000000 #default is 100000
 
 PLOT_Q_VALUES = False  # in order to do this you need to edit appropriately the keras files
 
-START_FROM_TRAINED = False  # If you want to already start training from some weights...
-TRAINED_WEIGHTS = None  # Provide here the path to the h5f / hdf5 weight file
+START_FROM_TRAINED = True  # If you want to already start training from some weights...
+TRAINED_WEIGHTS = data_directory + '/weights_epoch_100.h5f'  # Provide here the path to the h5f / hdf5 weight file
 
 now = datetime.datetime.now()
 DATE = str(now.day) + "." + str(now.month) + "_" + str(now.hour) + "." + str(now.minute)

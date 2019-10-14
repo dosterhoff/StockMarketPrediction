@@ -63,12 +63,12 @@ class Trail(Environment):
 
         if action == 2:  # sell / short
             self.action = SELL
-            self.value -= self.value * self.turn  # Update s(t+1) = s(t) + [s(t) * a]
+            self.value = float(self.value) - float(self.value) * int(self.turn)  # Update s(t+1) = s(t) + [s(t) * a]
             self.short_actions.append([self.position, c_val])
             self.prev_fin_pos = SELL
         elif action == 1:  # buy / long
             self.action = BUY
-            self.value += self.value * self.turn  # Update s(t+1) = s(t) - [s(t) * a]
+            self.value += self.value * int(self.turn)  # Update s(t+1) = s(t) - [s(t) * a]
             self.long_actions.append([self.position, c_val])
             self.prev_fin_pos = BUY
         else:  # stay
@@ -90,9 +90,9 @@ class Trail(Environment):
             # If the agent gets out of boundaries reset its trade position
             if self.reset_margin:
                 value = self.data[self.position]
-                upper = value + self.margin
-                lower = value - self.margin
-                if self.value > upper or self.value < lower:
+                upper = float(value) + float(self.margin)
+                lower = float(value) - self.margin
+                if float(self.value) > upper or float(self.value) < lower:
                     self.value = value
 
             self.observation = self.input_s()
@@ -168,8 +168,8 @@ class Trail(Environment):
         """
         Prepare the input to the agent
         """
-        input_up = (self.data[self.position] + self.margin) - self.value  # [0] - up values_std: ~0.0006
-        input_down = self.value - (self.data[self.position] - self.margin)  # [2] - down
+        input_up = float(float(self.data[self.position]) + float(self.margin)) - float(self.value)  # [0] - up values_std: ~0.0006
+        input_down = float(self.value) - float(float(self.data[self.position]) - float(self.margin))  # [2] - down
 
         # Rescale input to a better range
         input_up = input_up / 0.0006
@@ -192,16 +192,16 @@ class Trail(Environment):
         """
 
         c_val = self.data[self.position]  # p(t)
-        up_margin = c_val + self.margin  # p(t) + m
-        down_margin = c_val - self.margin  # p(t) - m
+        up_margin = float(c_val) + float(self.margin)  # p(t) + m
+        down_margin = float(c_val) - float(self.margin)  # p(t) - m
 
         # Because its almost impossible to get the exact number, use an acceptable slack
-        if np.abs(c_val - self.value) < 0.00001:
+        if np.abs(float(c_val) - float(self.value)) < 0.00001:
             reward = 1
-        elif self.value <= c_val:  # s(t) < p(t)
-            reward = (self.value - down_margin) / (c_val - down_margin)  # same as ( s(t) - p(t) + m ) / m
+        elif float(self.value) <= float(c_val):  # s(t) < p(t)
+            reward = (float(self.value) - float(down_margin)) / (float(c_val) - float(down_margin))  # same as ( s(t) - p(t) + m ) / m
         else:
-            reward = (self.value - up_margin) / (c_val - up_margin)  # same as (p(t) - s(t) + m ) / m
+            reward = (float(self.value) - float(up_margin)) / (float(c_val) - float(up_margin))  # same as (p(t) - s(t) + m ) / m
 
         if self.ce:  # If there was a change in the financial position (trade action) of the agent, apply a fee
             if self.action != self.prev_action:

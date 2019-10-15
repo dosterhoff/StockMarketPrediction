@@ -22,6 +22,8 @@ import os
 from pathlib import Path
 import datetime
 import json
+import random
+
 
 ENV_NAME = 'trading-rl'
 
@@ -39,7 +41,7 @@ data_directory = directory + "/data"
 
 # Hardware Parameters
 CPU = True  # Selection between CPU or GPU
-CPU_cores = 16  # If CPU, how many cores
+CPU_cores = 8  # If CPU, how many cores
 GPU_mem_use = 0.75  # In both cases the GPU mem is going to be used, choose fraction to use
 
 # Data Parameters
@@ -48,16 +50,16 @@ MAX_DATA_SIZE = 12000  # Maximum size of data
 DATA_SIZE = MAX_DATA_SIZE  # Size of data you want to use for training
 
 test_data = data_directory + '/test_data.npy'  # path to test data
-TEST_EPOCHS = 1  # How many test runs / epochs
-TEST_POINTS = [0]  # From which point in the time series to start in each epoch
-TEST_STEPS = 2000  # For how many points to run the epoch
+TEST_EPOCHS = 1  # How many test runs / epochs                                            ##Default is 1
+TEST_POINTS = [0]  # From which point in the time series to start in each epoch           ##Default is 0
+TEST_STEPS = 2000  # For how many points to run the epoch                                 ##Default is 2000
 
 # Validation Data
-VALIDATE = False  # Use a validation set if available
+VALIDATE = False  # Use a validation set if available                         ##Default is False
 VAL_DATA = data_directory + '/validation_data.npy'  # path to validation data set
-VAL_SIZE = None  # Set the size of the validation data you want to use
-TEST_EPOCHS_GEN = None  # How many epochs for validation
-TEST_STEPS_GEN = None  # How many steps in each epoch for validation
+VAL_SIZE = 100  # Set the size of the validation data you want to use       ##Default is None
+TEST_EPOCHS_GEN = 1  # How many epochs for validation                        ##Default is None
+TEST_STEPS_GEN = 100  # How many steps in each epoch for validation          ##Default is None
 
 # Initialize random starts within the validation data
 VAL_STARTS = None  # random.randint(low=0, high=VAL_SIZE-TEST_STEPS_GEN-1, size=TEST_EPOCHS_GEN)
@@ -81,7 +83,7 @@ COST_D = 0.005  # Different variable of cost for deng's method
 NORMALIZE_IN = True  # Normalize the input using z-score scaling
 
 # Algorithm Parameters
-STEPS = 15 #default is 500.
+STEPS = 5 #default is 500.
 EPOCHS = 100
 WINDOW_LENGTH = 100
 ONE_HOT = True  # Agent Position Awareness
@@ -103,13 +105,15 @@ MEM_SIZE = 1000000 #default is 100000
 
 PLOT_Q_VALUES = False  # in order to do this you need to edit appropriately the keras files
 
-START_FROM_TRAINED = True  # If you want to already start training from some weights...
+START_FROM_TRAINED = False  # If you want to already start training from some weights...
 TRAINED_WEIGHTS = data_directory + '/weights_epoch_100.h5f'  # Provide here the path to the h5f / hdf5 weight file
 
 now = datetime.datetime.now()
+randomnumber = random.randint(0000, 9999)
 DATE = str(now.day) + "." + str(now.month) + "_" + str(now.hour) + "." + str(now.minute)
-FOLDER = METHOD + "/e-" + str(EPOCHS) + "_s-" + str(STEPS) + "_w-" + str(WINDOW_LENGTH) + "_" + DATE
-#FOLDER =curDir + "\\" + METHOD + "-c-" + str(EPOCHS) + "_s-" + str(STEPS) + "_w-" + str(WINDOW_LENGTH) + "_" + DATE
+#FOLDER = "/PersistantFolder"
+FOLDER = METHOD + "/e-" + str(EPOCHS) + "_s-" + str(STEPS) + "_w-" + str(WINDOW_LENGTH) + "_" + DATE + "_rand_" + str(randomnumber)
+
 
 
 def config_hard():
@@ -195,7 +199,7 @@ def set_model(env):
 
 
 def train_w_validation(env, dqn):
-    filepath = env.folder + '/validate/epochs/'
+    filepath = env.folder + '\\validate\\epochs\\'
     os.makedirs(filepath)
 
     # Save each epoch's weight using the callback function of keras
@@ -235,8 +239,8 @@ def train_w_validation(env, dqn):
                 best_reward = epoch_rewards
                 print("BEST EPOCH: " + best_epoch + " with: " + str(best_reward))
 
-    path = directory + '/' + filepath + best_epoch
-    new_path = directory + '/' + env.folder + '/' + best_epoch
+    path = directory + '\\' + filepath + best_epoch
+    new_path = directory + '\\' + env.folder + '\\' + best_epoch
     os.rename(path, new_path)
     print("Loading: " + new_path)
     dqn.load_weights(new_path)
@@ -327,6 +331,7 @@ def write_model_info():
     os.makedirs(FOLDER)
     with open(FOLDER + '/agent_info.json', 'w') as f:
         json.dump(info, f)
+
 
 
 if __name__ == '__main__':

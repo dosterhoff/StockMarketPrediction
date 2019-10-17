@@ -23,6 +23,8 @@ from pathlib import Path
 import datetime
 import json
 import random
+import shutil
+
 
 
 ENV_NAME = 'trading-rl'
@@ -239,13 +241,15 @@ def train_w_validation(env, dqn):
                 best_reward = epoch_rewards
                 print("BEST EPOCH: " + best_epoch + " with: " + str(best_reward))
 
-    path = directory + '\\' + filepath + best_epoch
+    path = directory + '\\trading_agent\\' + filepath + best_epoch         ##Original: directory + '\\' + filepath + best_epoch
     new_path = directory + '\\' + env.folder + '\\' + best_epoch
     os.makedirs(new_path)
     
     #os.rename(path, new_path)   ##I think this is supposed to be copy instead of rename.
     print("Loading: " + new_path)
-    dqn.load_weights(path)          ##Default is new_path
+    shutil.copy(path, new_path)
+    #print("Best Reward Value: " + best_reward)
+    dqn.load_weights(new_path + '\\' + best_epoch)          ##Default is new_path
 
     env.validation_process = False
     env.validate = False

@@ -55,7 +55,7 @@ TEST_POINTS = [0]  # From which point in the time series to start in each epoch 
 TEST_STEPS = 2000  # For how many points to run the epoch                                 ##Default is 2000
 
 # Validation Data
-VALIDATE = False  # Use a validation set if available                         ##Default is False
+VALIDATE = True  # Use a validation set if available                         ##Default is False
 VAL_DATA = data_directory + '/validation_data.npy'  # path to validation data set
 VAL_SIZE = 100  # Set the size of the validation data you want to use       ##Default is None
 TEST_EPOCHS_GEN = 1  # How many epochs for validation                        ##Default is None
@@ -112,7 +112,7 @@ now = datetime.datetime.now()
 randomnumber = random.randint(0000, 9999)
 DATE = str(now.day) + "." + str(now.month) + "_" + str(now.hour) + "." + str(now.minute)
 #FOLDER = "/PersistantFolder"
-FOLDER = METHOD + "/e-" + str(EPOCHS) + "_s-" + str(STEPS) + "_w-" + str(WINDOW_LENGTH) + "_" + DATE + "_rand_" + str(randomnumber)
+FOLDER = METHOD + "\\e-" + str(EPOCHS) + "_s-" + str(STEPS) + "_w-" + str(WINDOW_LENGTH) + "_" + DATE + "_rand_" + str(randomnumber)
 
 
 
@@ -241,9 +241,11 @@ def train_w_validation(env, dqn):
 
     path = directory + '\\' + filepath + best_epoch
     new_path = directory + '\\' + env.folder + '\\' + best_epoch
-    os.rename(path, new_path)
+    os.makedirs(new_path)
+    
+    #os.rename(path, new_path)   ##I think this is supposed to be copy instead of rename.
     print("Loading: " + new_path)
-    dqn.load_weights(new_path)
+    dqn.load_weights(path)          ##Default is new_path
 
     env.validation_process = False
     env.validate = False

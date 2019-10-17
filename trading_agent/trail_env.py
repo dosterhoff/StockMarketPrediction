@@ -106,9 +106,9 @@ class Trail(Environment):
         After each epoch or at a start of a process (train, test, validation) reset the variables.
         """
         # If its testing phase, save results in a different folder
-        if self.testing:
+        if self.testing:            
             self.data = np.load(self.test_data)
-            self.data_size = len(self.data)
+            self.data_size = len(self.data)            
             self.position = self.test_starts[self.test_starts_index]
             self.test_starts_index += 1
             self.test_folder = self.folder + '/Test_' + str(self.test_starts_index)

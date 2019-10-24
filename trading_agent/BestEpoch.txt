@@ -1,0 +1,1 @@
+W:\SkyDrive\!! delete this\trading-rl-master\trailing\e-100_s-5_w-100_24.10_10.22_rand_473\weights.41.hdf5\weights.41.hdf5

@@ -47,18 +47,18 @@ CPU_cores = 8  # If CPU, how many cores
 GPU_mem_use = 0.75  # In both cases the GPU mem is going to be used, choose fraction to use
 
 # Data Parameters
-train_data = data_directory + '/train_data.npy'  # path to training data
+train_data = data_directory + '\\train_data.npy'  # path to training data               ### All of the data files were originally formatted like '/train_data' I changed them for best practice, since windows doesnt use '/' in file directories. (but yet the program still worked with the original formatting :thinkingface:)
 MAX_DATA_SIZE = 12000  # Maximum size of data
 DATA_SIZE = MAX_DATA_SIZE  # Size of data you want to use for training
 
-test_data = data_directory + '/test_data.npy'  # path to test data
+test_data = data_directory + '\\test_data.npy'  # path to test data
 TEST_EPOCHS = 1  # How many test runs / epochs                                            ##Default is 1
 TEST_POINTS = [0]  # From which point in the time series to start in each epoch           ##Default is 0
 TEST_STEPS = 2000  # For how many points to run the epoch                                 ##Default is 2000
 
 # Validation Data
 VALIDATE = True  # Use a validation set if available                         ##Default is False
-VAL_DATA = data_directory + '/validation_data.npy'  # path to validation data set
+VAL_DATA = data_directory + '\\validation_data.npy'  # path to validation data set
 VAL_SIZE = 100  # Set the size of the validation data you want to use       ##Default is None
 TEST_EPOCHS_GEN = 1  # How many epochs for validation                        ##Default is None
 TEST_STEPS_GEN = 100  # How many steps in each epoch for validation          ##Default is None
@@ -107,8 +107,13 @@ MEM_SIZE = 1000000 #default is 100000
 
 PLOT_Q_VALUES = False  # in order to do this you need to edit appropriately the keras files
 
-START_FROM_TRAINED = False  # If you want to already start training from some weights...
-TRAINED_WEIGHTS = data_directory + '/weights_epoch_100.h5f'  # Provide here the path to the h5f / hdf5 weight file
+f= open("BestEpoch.txt","r")            ##Loads the file path for the last best run
+LastBestEpoch = f.read()                ##Saves it as the variable LastBestEpoch
+f.close
+print("\n\n\n"+"The previous best epoch is being loaded from this directory: " + LastBestEpoch +"\n\n\n")       ##Debug purposes, might delete later
+
+START_FROM_TRAINED = True  # If you want to already start training from some weights...
+TRAINED_WEIGHTS = LastBestEpoch  # Provide here the path to the h5f / hdf5 weight file. The previous value was "data_directory + '/weights_epoch_100.h5f'"
 
 now = datetime.datetime.now()
 randomnumber = random.randint(0000, 9999)
@@ -248,11 +253,15 @@ def train_w_validation(env, dqn):
     #os.rename(path, new_path)   ##I think this is supposed to be copy instead of rename.
     print("Loading: " + new_path)
     shutil.copy(path, new_path)
-    #print("Best Reward Value: " + best_reward)
+    print("Best Reward Value: " + str(best_reward))
     dqn.load_weights(new_path + '\\' + best_epoch)          ##Default is new_path
 
-    env.validation_process = False
-    env.validate = False
+    f= open("BestEpoch.txt","w+")
+    f.write(new_path + '\\' + best_epoch)
+    f.close()
+
+    env.validation_process = True       ##Default is False
+    env.validate = True                 ##Default is False
 
 
 def train(env, dqn):

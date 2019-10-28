@@ -42,7 +42,7 @@ def plot_actions(folder, memory, long_actions, short_actions, title='agent_actio
         show(p)
 
 
-def plot_trail(folder, memory, title='trail_history', save_only=False):
+def plot_trail(memory, folder, title='trail_history', save_only=True):
     """
     Plot the trail of the agent.
     """

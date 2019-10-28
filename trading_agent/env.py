@@ -54,7 +54,7 @@ class Environment(gym.Env):
 
         self.spec = None
         self.validation_process = False
-        self.testing = False
+        self.testing = True
         self.validate = False
 
         self.rewards = []
@@ -68,7 +68,8 @@ class Environment(gym.Env):
         raise NotImplementedError
 
     def reset(self):
-        raise NotImplementedError
+        print('\n\n reset function called \n\n')
+        #raise NotImplementedError
 
     def render(self, mode='human', close=False):
         """

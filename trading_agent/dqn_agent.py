@@ -52,16 +52,16 @@ MAX_DATA_SIZE = 12000  # Maximum size of data
 DATA_SIZE = MAX_DATA_SIZE  # Size of data you want to use for training
 
 test_data = data_directory + '\\test_data.npy'  # path to test data
-TEST_EPOCHS = 1  # How many test runs / epochs                                            ##Default is 1
+TEST_EPOCHS = 1  # How many test runs / epochs                                            ##Default is 1. this should always be 1
 TEST_POINTS = [0]  # From which point in the time series to start in each epoch           ##Default is 0
 TEST_STEPS = 2000  # For how many points to run the epoch                                 ##Default is 2000
 
 # Validation Data
-VALIDATE = True  # Use a validation set if available                         ##Default is False
+VALIDATE = False  # Use a validation set if available                         ##Default is False
 VAL_DATA = data_directory + '\\validation_data.npy'  # path to validation data set
-VAL_SIZE = 100  # Set the size of the validation data you want to use       ##Default is None
+VAL_SIZE = None  # Set the size of the validation data you want to use       ##Default is None
 TEST_EPOCHS_GEN = 1  # How many epochs for validation                        ##Default is None
-TEST_STEPS_GEN = 100  # How many steps in each epoch for validation          ##Default is None
+TEST_STEPS_GEN = 500  # How many steps in each epoch for validation          ##Default is None
 
 # Initialize random starts within the validation data
 VAL_STARTS = None  # random.randint(low=0, high=VAL_SIZE-TEST_STEPS_GEN-1, size=TEST_EPOCHS_GEN)
@@ -85,7 +85,7 @@ COST_D = 0.005  # Different variable of cost for deng's method
 NORMALIZE_IN = True  # Normalize the input using z-score scaling
 
 # Algorithm Parameters
-STEPS = 5 #default is 500.
+STEPS = 2 #default is 500.
 EPOCHS = 100
 WINDOW_LENGTH = 100
 ONE_HOT = True  # Agent Position Awareness
@@ -112,7 +112,7 @@ LastBestEpoch = f.read()                ##Saves it as the variable LastBestEpoch
 f.close
 print("\n\n\n"+"The previous best epoch is being loaded from this directory: " + LastBestEpoch +"\n\n\n")       ##Debug purposes, might delete later
 
-START_FROM_TRAINED = True  # If you want to already start training from some weights...
+START_FROM_TRAINED = False  # If you want to already start training from some weights...
 TRAINED_WEIGHTS = LastBestEpoch  # Provide here the path to the h5f / hdf5 weight file. The previous value was "data_directory + '/weights_epoch_100.h5f'"
 
 now = datetime.datetime.now()
@@ -238,7 +238,7 @@ def train_w_validation(env, dqn):
             env.rewards = []
             env.pnls = []
             env.val_starts_index = 0
-            dqn.test(env, nb_episodes=TEST_EPOCHS_GEN, nb_max_episode_steps=TEST_STEPS_GEN, visualize=False)
+            dqn.test(env, nb_episodes=TEST_EPOCHS_GEN, nb_max_episode_steps=TEST_STEPS_GEN, visualize=True)
 
             epoch_rewards = np.sum(env.rewards) / float(TEST_EPOCHS_GEN)
             if epoch_rewards > best_reward:
@@ -260,8 +260,8 @@ def train_w_validation(env, dqn):
     f.write(new_path + '\\' + best_epoch)
     f.close()
 
-    env.validation_process = True       ##Default is False
-    env.validate = True                 ##Default is False
+    env.validation_process = False       ##Default is False
+    env.validate = False                 ##Default is False
 
 
 def train(env, dqn):

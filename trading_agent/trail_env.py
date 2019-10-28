@@ -60,6 +60,7 @@ class Trail(Environment):
         """
 
         c_val = self.data[self.position]  # this is p_t
+        c_val2 = c_val
 
         if action == 2:  # sell / short
             self.action = SELL
@@ -108,11 +109,16 @@ class Trail(Environment):
         # If its testing phase, save results in a different folder
         if self.testing:            
             self.data = np.load(self.test_data)
-            self.data_size = len(self.data)            
+            self.data_size = len(self.data)
+            self.test_starts_index = 0  #Dave added this. you get errors if the index is not zero before the next line
             self.position = self.test_starts[self.test_starts_index]
             self.test_starts_index += 1
-            self.test_folder = self.folder + '/Test_' + str(self.test_starts_index)
-            os.makedirs(self.test_folder)
+            self.test_folder = self.folder + '\\Test_' + str(self.test_starts_index)
+            try:
+                os.makedirs(self.test_folder)
+            except:
+                print('\n\nthe folder already exists\n\n')
+
         elif self.validation_process:  # Validation process is on different data
             self.data = np.load(self.validation_data)
             self.data_size = len(self.data)
@@ -162,7 +168,8 @@ class Trail(Environment):
         super().reset()
         if not self.validation_process:
             title_trail = '/test_trail_' + str(self.test_starts_index)
-            plt.plot_trail(self.memory, self.test_folder, title_trail)
+            #self.folder = 
+            plt.plot_trail(self.memory, self.folder, title_trail)
 
     def input_s(self):
         """
@@ -191,7 +198,7 @@ class Trail(Environment):
         Normalize the reward to a proper range
         """
 
-        c_val = self.data[self.position]  # p(t)
+        c_val = self.data[self.position]  # p(t) #this becomes null after running through all the test epochs, and i have no idea why.
         up_margin = float(c_val) + float(self.margin)  # p(t) + m
         down_margin = float(c_val) - float(self.margin)  # p(t) - m
 

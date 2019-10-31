@@ -122,17 +122,17 @@ class Environment(gym.Env):
             pnls += "Test reward: " + str(self.epoch_reward) + "\n"
             print(pnls)
             if self.testing:
-                file_sl = '/test_pnl_' + str(self.test_starts_index) + '.out'
+                file_sl = '\\test_pnl_' + str(self.test_starts_index) + '.out'
                 with open(self.test_folder + file_sl, "w") as text_file:
                     text_file.write(pnls)
-                file_tr = '/test_trades_' + str(self.test_starts_index) + '.out'
+                file_tr = '\\test_trades_' + str(self.test_starts_index) + '.out'
                 with open(self.test_folder + file_tr, "w") as text_file:
                     text_file.write(str(self.trades))
             else:
-                file_sl = '/train_pnl.out'
+                file_sl = '\\train_pnl.out'
                 with open(self.folder + file_sl, "w") as text_file:
                     text_file.write(pnls)
-                file_tr = '/train_trades.out'
+                file_tr = '\\train_trades.out'
                 with open(self.folder + file_tr, "w") as text_file:
                     text_file.write(str(self.trades))
         return 0

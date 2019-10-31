@@ -6,7 +6,7 @@ def plot_actions(folder, memory, long_actions, short_actions, title='agent_actio
     """
     Plot the financial positions of the agent in respect to the time series of the exchange rate.
     """
-    output_file(folder + '/' + title + '.html')
+    output_file(folder + '\\' + title + '.html')
 
     p = figure(plot_width=1000, plot_height=600)
 
@@ -42,11 +42,11 @@ def plot_actions(folder, memory, long_actions, short_actions, title='agent_actio
         show(p)
 
 
-def plot_trail(memory, folder, title='trail_history', save_only=True):
+def plot_trail(memory, folder, title='trail_history', save_only=False):
     """
     Plot the trail of the agent.
     """
-    output_file(folder + '/' + title + '.html')
+    output_file(folder + '\\' + title + '.html')
 
     p = figure(plot_width=1000, plot_height=600)
 
@@ -67,7 +67,7 @@ def plot_q_values(folder, q_values, title='q_values_train', save_only=True):
     """
     Plot the q values history of the agent
     """
-    output_file(folder + '/' + title + '.html')
+    output_file(folder + '\\' + title + '.html')
     with open(folder + title + '.json', 'w') as f:
         json.dump(list(q_values), f)
 
@@ -88,7 +88,7 @@ def plot_q_values(folder, q_values, title='q_values_train', save_only=True):
 
 
 def plot_train_rewards(folder, rewards, title='train_rewards'):
-    output_file(folder + '/' + title + '.html')
+    output_file(folder + '\\' + title + '.html')
 
     p = figure(plot_width=1000, plot_height=600)
 

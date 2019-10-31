@@ -60,7 +60,7 @@ class Trail(Environment):
         """
 
         c_val = self.data[self.position]  # this is p_t
-        c_val2 = c_val
+        
 
         if action == 2:  # sell / short
             self.action = SELL
@@ -91,7 +91,13 @@ class Trail(Environment):
             # If the agent gets out of boundaries reset its trade position
             if self.reset_margin:
                 value = self.data[self.position]
-                upper = float(value) + float(self.margin)
+                try:                                                #This code sometimes gives a null error, so we try this line, and if it doesnt work, we set the value to zero and try that line again.
+                    upper = float(value) + float(self.margin)
+                except:
+                    print('VALUE is null. Resetting to 0.')
+                    value = 0
+                    upper = float(value) + float(self.margin)
+                #upper = float(value) + float(self.margin)
                 lower = float(value) - self.margin
                 if float(self.value) > upper or float(self.value) < lower:
                     self.value = value
@@ -100,7 +106,7 @@ class Trail(Environment):
         else:
             self.done = True
 
-        return self.observation, self.reward, self.done, {}
+        return self.observation, self.reward, self.done, {}  ##These curly braces have something to do with printing the information of each episode in the console.
 
     def reset(self):
         """
@@ -167,7 +173,7 @@ class Trail(Environment):
         super().calculate_pnl(env_type="trailing", save=True)
         super().reset()
         if not self.validation_process:
-            title_trail = '/test_trail_' + str(self.test_starts_index)
+            title_trail = '\\test_trail_' + str(self.test_starts_index)
             #self.folder = 
             plt.plot_trail(self.memory, self.folder, title_trail)
 
@@ -175,8 +181,15 @@ class Trail(Environment):
         """
         Prepare the input to the agent
         """
-        input_up = float(float(self.data[self.position]) + float(self.margin)) - float(self.value)  # [0] - up values_std: ~0.0006
-        input_down = float(self.value) - float(float(self.data[self.position]) - float(self.margin))  # [2] - down
+        try:
+            input_up = float(float(self.data[self.position]) + float(self.margin)) - float(self.value)  # [0] - up values_std: ~0.0006
+        except:
+            input_up = float(float(0) + float(self.margin)) - float(self.value)     #If a null value is calculated, we will set it to 0
+
+        try:
+            input_down = float(self.value) - float(float(self.data[self.position]) - float(self.margin))  # [2] - down
+        except:
+            input_down = float(self.value) - float(float(0) - float(self.margin))
 
         # Rescale input to a better range
         input_up = input_up / 0.0006
@@ -199,6 +212,14 @@ class Trail(Environment):
         """
 
         c_val = self.data[self.position]  # p(t) #this becomes null after running through all the test epochs, and i have no idea why.
+        if c_val == None:
+            print('c_val is NONE. Resetting to 0.')         ##Dave added these if statements in. thay can (and probably should) be taken out at some point.
+            c_val = 0
+
+        if c_val == 'null':
+            print('c_val is null. Resetting to 0.')
+            c_val = 0
+        
         up_margin = float(c_val) + float(self.margin)  # p(t) + m
         down_margin = float(c_val) - float(self.margin)  # p(t) - m
 

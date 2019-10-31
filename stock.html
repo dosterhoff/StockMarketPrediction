@@ -1,0 +1,70 @@
+{%extends "layout.html"%}
+{% block content %}
+    <style>
+        h1 {
+            color: green;
+            font-style: italic;
+        }
+        body{
+            background-color:lavender;
+        }
+    </style>
+
+<body>
+
+
+
+<script type = "text/javascript">
+        function pic1()
+        {
+            document.getElementById("img").src = "http://i1.ce.cn/intl/specials/zxxx/201308/16/W020130816555000308852.jpg";
+        }
+        function pic2()
+        {
+            document.getElementById("img").src ="BTC-USD 9,326.24 81.68 0.88% _ Bitcoin USD - Yahoo Finance.html";
+        } </script>
+
+
+
+
+
+    <img src = "" id = "img"/> <input type="button" value="Show Picture
+    1" onclick="pic1()"/> <input type="button" value="Show Picture 2"
+    onclick="pic2()"/>
+
+
+<div class=”container-fluid”>
+    
+        <h1 class="display">StockWatch </h1>
+    <div class="jumbotron big-banner">
+        <div class="row myrow">
+        <div class="col-md-12 col-xs-12" align="center">
+            <h1>Stock Price for ABCD Stock</h1>
+            <div class="card mycard"> <img id="logo" src="/static/Stock1.png"> </div>
+        </div>
+        <br>
+         <div class="col-md-12 col-xs-12">
+            <div class="card mycard">
+                <div class="card-body text-center"> 
+                <h1>Stock Rewards</h1>  
+                    <div class="card mycard"> <img id="logo" src="/static/Stock2.png"> </div>
+                </div>
+           </div>
+        </div>
+    </div>
+</div>
+</div>
+<footer class="page-footer font-small blue">
+    <hr>
+    <!-- Copyright -->
+    <div class="footer-copyright text-center py-3">© 2019 Copyright: <a href="https://stockWatch.com/bootstrap-tutorial/"> StockWatch.com</a> </div>
+    <!-- Copyright -->
+</footer>
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous">
+    
+</script>                
+</body>
+{% endblock content %}
+

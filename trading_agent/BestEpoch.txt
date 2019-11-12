@@ -1,0 +1,1 @@
+C:\Users\Samkh\OneDrive\Desktop\StockMarketPrediction\trailing\e-100_s-5_w-100_11.11_20.55_rand_1611\weights.01.hdf5\weights.01.hdf5

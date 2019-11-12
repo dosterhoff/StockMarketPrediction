@@ -57,7 +57,7 @@ TEST_POINTS = [0]  # From which point in the time series to start in each epoch 
 TEST_STEPS = 2000  # For how many points to run the epoch                                 ##Default is 2000
 
 # Validation Data
-VALIDATE = True  # Use a validation set if available                         ##Default is False
+VALIDATE = False  # Use a validation set if available                         ##Default is False    ##ValidateMode
 VAL_DATA = data_directory + '\\validation_data.npy'  # path to validation data set
 VAL_SIZE = None  # Set the size of the validation data you want to use       ##Default is None
 TEST_EPOCHS_GEN = 1  # How many epochs for validation                        ##Default is None. was also 1
@@ -69,9 +69,9 @@ VAL_STARTS = None  # random.randint(low=0, high=VAL_SIZE-TEST_STEPS_GEN-1, size=
 # Environment Parameters
 # 1: Trailing
 RESET_FROM_MARGIN = True  # Reset each time agent deviates out of borders
-MARGIN = 0.01  # Set the margin of the borders
-TURN = 0.001  # Percentage of adjustment to agent's trail
-COST = 0.3  # Cost of changing financial position
+MARGIN = 0.015  # Set the margin of the borders                  #Default is 0.01
+TURN = 0.001  # Percentage of adjustment to agent's trail       #default is 0.001
+COST = 0.3  # Cost of changing financial position               #default is 0.3
 
 # cost in each change of financial position
 # if false only when short->long, long->short (neutral in between dont count)
@@ -85,19 +85,19 @@ COST_D = 0.005  # Different variable of cost for deng's method
 NORMALIZE_IN = True  # Normalize the input using z-score scaling
 
 # Algorithm Parameters
-STEPS = 5 #default is 500.
+STEPS = 50 #default is 500.
 EPOCHS = 100
 WINDOW_LENGTH = 100
 ONE_HOT = True  # Agent Position Awareness
 
-GAMMA = 0.95
+GAMMA = 0.95  #default 0.95
 LR = 0.001
 LR_DEC = 0.
 TAR_MOD_UP = 0.001
 DELTA_CLIP = 1
 
 ALL_STEPS = STEPS * EPOCHS
-PERCENTAGE_EXPLORE = 0.8    # should be around 80% of all steps
+PERCENTAGE_EXPLORE = 0.75    # should be around 80% of all steps
 EXPLORE_STEPS = int(ALL_STEPS * PERCENTAGE_EXPLORE)  # after how many steps should exploration be stabilized
 
 # Neural Net Parameters
@@ -112,7 +112,7 @@ LastBestEpoch = f.read()                ##Saves it as the variable LastBestEpoch
 f.close
 print("\n\n\n"+"The previous best epoch is being loaded from this directory: " + LastBestEpoch +"\n\n\n")       ##Debug purposes, might delete later
 
-START_FROM_TRAINED = False  # If you want to already start training from some weights...
+START_FROM_TRAINED = True  # If you want to already start training from some weights...
 TRAINED_WEIGHTS = LastBestEpoch  # Provide here the path to the h5f / hdf5 weight file. The previous value was "data_directory + '/weights_epoch_100.h5f'"
 
 now = datetime.datetime.now()

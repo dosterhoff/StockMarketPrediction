@@ -175,7 +175,7 @@ class Trail(Environment):
         if not self.validation_process:
             title_trail = '\\test_trail_' + str(self.test_starts_index)
             #self.folder = 
-            plt.plot_trail(self.memory, self.folder, title_trail)
+            plt.plot_trail(self.folder, self.memory, title_trail)
 
     def input_s(self):
         """

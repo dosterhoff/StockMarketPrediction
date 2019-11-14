@@ -85,7 +85,7 @@ COST_D = 0.005  # Different variable of cost for deng's method
 NORMALIZE_IN = True  # Normalize the input using z-score scaling
 
 # Algorithm Parameters
-STEPS = 50 #default is 500.
+STEPS = 75 #default is 500.
 EPOCHS = 100
 WINDOW_LENGTH = 100
 ONE_HOT = True  # Agent Position Awareness
@@ -107,13 +107,14 @@ MEM_SIZE = 100000 #default is 100000
 
 PLOT_Q_VALUES = False  # in order to do this you need to edit appropriately the keras files
 
-f= open("BestEpoch.txt","r")            ##Loads the file path for the last best run
-LastBestEpoch = f.read()                ##Saves it as the variable LastBestEpoch
-f.close
-print("\n\n\n"+"The previous best epoch is being loaded from this directory: " + LastBestEpoch +"\n\n\n")       ##Debug purposes, might delete later
+#f= open("BestEpoch.txt","r")            ##Loads the file path for the last best run
+#LastBestEpoch = f.read()                ##Saves it as the variable LastBestEpoch
+#f.close
+#print("\n\n\n"+"The previous best epoch is being loaded from this directory: " + LastBestEpoch +"\n\n\n")       ##Debug purposes, might delete later
 
 START_FROM_TRAINED = True  # If you want to already start training from some weights...
-TRAINED_WEIGHTS = LastBestEpoch  # Provide here the path to the h5f / hdf5 weight file. The previous value was "data_directory + '/weights_epoch_100.h5f'"
+TRAINED_WEIGHTS = data_directory + '/weights_epoch_100.h5f'  # Provide here the path to the h5f / hdf5 weight file. The previous value was "data_directory + '/weights_epoch_100.h5f'" you can also use LastBestEpoch
+
 
 now = datetime.datetime.now()
 randomnumber = random.randint(0000, 9999)

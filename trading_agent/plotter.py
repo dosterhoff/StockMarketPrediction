@@ -1,4 +1,5 @@
 from bokeh.plotting import figure, output_file, show, save
+from bokeh.models.annotations import Title
 import json
 
 
@@ -35,6 +36,12 @@ def plot_actions(folder, memory, long_actions, short_actions, title='agent_actio
         y_axis_tr = [y[1] for y in trades]
         p.scatter(x_axis_tr, y_axis_tr, marker="diamond",
                   line_color="#FFA500", fill_color="#FFFF00", fill_alpha=0.5, size=16)
+
+    p.xaxis.axis_label = 'Epochs'
+    p.yaxis.axis_label = 'Reward'
+    t = Title()
+    t.text = 'Agent Actions'
+    p.title = t
 
     if save_only:
         save(p)
@@ -97,5 +104,11 @@ def plot_train_rewards(folder, rewards, title='train_rewards'):
     y_axis = rewards
 
     p.line(x_axis, y_axis, line_width=2)
+
+    p.xaxis.axis_label = 'Time'
+    p.yaxis.axis_label = 'Stock Price'
+    t = Title()
+    t.text = 'Stock Price during year 2018'
+    p.title = t
 
     show(p)

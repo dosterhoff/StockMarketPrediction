@@ -85,7 +85,7 @@ COST_D = 0.005  # Different variable of cost for deng's method
 NORMALIZE_IN = True  # Normalize the input using z-score scaling
 
 # Algorithm Parameters
-STEPS = 75 #default is 500.
+STEPS = 150 #default is 500.
 EPOCHS = 100
 WINDOW_LENGTH = 100
 ONE_HOT = True  # Agent Position Awareness
@@ -112,7 +112,7 @@ PLOT_Q_VALUES = False  # in order to do this you need to edit appropriately the 
 #f.close
 #print("\n\n\n"+"The previous best epoch is being loaded from this directory: " + LastBestEpoch +"\n\n\n")       ##Debug purposes, might delete later
 
-START_FROM_TRAINED = True  # If you want to already start training from some weights...
+START_FROM_TRAINED = False  # If you want to already start training from some weights...
 TRAINED_WEIGHTS = data_directory + '/weights_epoch_100.h5f'  # Provide here the path to the h5f / hdf5 weight file. The previous value was "data_directory + '/weights_epoch_100.h5f'" you can also use LastBestEpoch
 
 

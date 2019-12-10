@@ -70,7 +70,7 @@ def plot_trail(folder, memory, title='trail_history', save_only=True):  #This or
         show(p)
 
 
-def plot_q_values(folder, q_values, title='q_values_train', save_only=True):
+def plot_q_values(q_values, folder, title='q_values_train', save_only=True):
     """
     Plot the q values history of the agent
     """

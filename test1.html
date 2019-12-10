@@ -1,0 +1,27 @@
+
+<!DOCTYPE html>  
+<html>  
+  <head>  
+    <meta charset="utf-8">  
+	<script language="javascript">     
+	function exec1(command) 
+	{     
+	  var ws = new ActiveXObject("WScript.Shell");      
+	  ws.run(command);
+	}     
+	</script>   
+  </head>  
+  
+<body>
+	<div id="header">
+	<h1>open python command</h1>
+	</div>
+ 
+	<div id="nav">
+		open python command 
+		<input type="button" value="run python" οnclick="exec1('python')" />  <!--python here--> 
+		<br/> 
+	</div>
+ 
+</body> 
+</html> 
